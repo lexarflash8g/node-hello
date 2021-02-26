@@ -2,19 +2,19 @@ pipeline {
     agent any
     
     tools {
-        node 'node'
+        nodejs 'node'
     }
     stages{
         stage('build'){
             when{
                  branch 'master'
-                 changeset "**/result"
+                 changeset "**/result/**"
             }
             steps{
                 echo "compiling worker app"
                 dir('worker'){
                     sh 'npm install'
-                    sh 'npm test'
+                   
                 }
                 }
             }
@@ -22,16 +22,18 @@ pipeline {
          stage('test'){
             when{
                  branch 'master'
-                 changeset "**/worker"
+                 changeset "**/rseult/**"
             }
             steps{
                echo "running unit tests" 
                dir('worker'){
                     sh 'npm install'
+                    sh 'npm test'
 
                 }
             }
         }
-                }
-            }
+                
+    }
+}
         
